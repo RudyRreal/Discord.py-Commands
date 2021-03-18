@@ -1,0 +1,6 @@
+################ DM Message command ################
+@client.command()
+@commands.has_permissions(administrator=True)
+async def DM(ctx, user: discord.User, *, msg):
+    await ctx.send('*** DM has been send ! ***')
+    await user.send(f'{msg}')

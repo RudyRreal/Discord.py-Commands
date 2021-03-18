@@ -1,0 +1,22 @@
+################### Delete Voice Channel command ###################
+@client.command()
+@commands.has_permissions(administrator=True)
+async def deletevc(ctx, vc: d.VoiceChannel):
+    mbed = d.Embed(
+        title = 'Success',
+        description = f'{vc} has successfully been deleted!'
+    )
+    await ctx.send(embed=mbed)
+    await vc.delete()
+
+################### Create Voice Channel command ###################
+@client.command()
+@commands.has_permissions(administrator=True)
+async def createvc(ctx, channelName):
+    guild = ctx.guild
+    mbed = d.Embed(
+        title = 'Success',
+        description = f'{channelName} has successfully been created!'
+    )
+    await guild.create_voice_channel(name=channelName)
+    await ctx.send(embed=mbed)

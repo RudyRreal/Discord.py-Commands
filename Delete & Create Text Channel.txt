@@ -1,0 +1,22 @@
+############ Delete Text Channel command ############
+@client.command()
+@commands.has_permissions(administrator=True)
+async def deletechannel(ctx, channel: d.TextChannel):
+    mbed = d.Embed(
+        title = 'Success',
+        description = f'Channel: {channel} has been deleted!'
+    )
+    await ctx.send(embed=mbed)
+    await channel.delete()
+
+############ Create Text Channel command ############
+@client.command()
+@commands.has_permissions(administrator=True)
+async def createchannel(ctx, channelName):
+    guild = ctx.guild
+    mbed = d.Embed(
+        title = 'Success',
+        description = "{} has been successfully created.".format(channelName)
+    )
+    await guild.create_text_channel(name='{}'.format(channelName))
+    await ctx.send(embed=mbed)

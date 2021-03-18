@@ -1,0 +1,10 @@
+################### Meme command ###################
+@client.command()
+async def meme(ctx):
+    url = 'https://meme-api.herokuapp.com/gimme'
+    res = urlopen(url)
+    data = res.read().decode('utf-8')
+    res_json = json.loads(data)
+    embed = discord.Embed(title=res_json["title"], url=res_json["postLink"])
+    embed.set_image(url=res_json["url"])
+    await ctx.send(embed=embed)

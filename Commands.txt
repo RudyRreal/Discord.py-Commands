@@ -1,0 +1,75 @@
+# ping command
+@client.command()
+async def ping(ctx):
+    await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
+    
+# clear command
+@client.command(aliases=['clear1'])
+@commands.has_permissions(manage_messages=True)
+async def clear(ctx, amount: int=100):
+    await ctx.channel.purge(limit=amount + 1)
+    await ctx.send("{} Message has been clear".format(amount))
+    await asyncio.sleep(2)
+    await ctx.channel.purge(limit=1)
+   
+@client.command()
+async def kick(ctx, member : discord.Member, *, reason=None):
+    await member.kick(reason=reason)
+    await ctx.send(f' ✅ Kicked {member.mention}')
+
+# Ban command
+@client.command(description="bans a user with specific reason (only admins)") #ban
+@commands.has_permissions(administrator=True)
+async def ban (ctx, member:discord.User=None, reason =None):
+ try:
+    if (reason == None):
+        await ctx.channel.send("You  have to specify a reason!")
+        return
+    if (member == ctx.message.author or member == None):
+        await ctx.send("""You cannot ban yourself!""")
+    else:
+        message = f"You have been banned from {ctx.guild.name} for {reason}"
+        await member.send(message)
+        await ctx.guild.ban(member, reason=reason)
+        print(member)
+        print(reason)
+        await ctx.channel.send(f"{member} is banned!")
+ except:
+    await ctx.send(f"Error banning user {member} (cannot ban owner or bot)")
+
+# Unban command
+@client.command()
+async def unban(ctx, user: discord.User):
+    guild = ctx.guild
+    mebed = discord.Embed(
+        title= 'Success!',
+        description= f"{user} has successfully been unbanned."
+    )
+    if ctx.author.guild_permissions.ban_members:
+        await ctx.send(embed=mebed)
+        await guild.unban(user=user)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

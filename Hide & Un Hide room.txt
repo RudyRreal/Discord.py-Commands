@@ -1,0 +1,20 @@
+# # # # # # # # # # # # # # Hide room command # # # # # # # # # # # # # #
+@client.command(aliases=['hide1'])
+@commands.has_permissions(manage_channels=True)
+async def hide(ctx, channel: discord.TextChannel = None):
+    channel = channel or ctx.channel
+    overwrite = channel.overwrites_for(ctx.guild.default_role)
+    overwrite.read_messages = False
+    await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
+    await ctx.send(':bust_in_silhouette: | channel has been Hide {}'.format(channel.mention))
+    
+    
+ # # # # # # # # # # # # # # UnHide room command  # # # # # # # # # # # # # #
+@client.command(aliases=['unhide1'])
+@commands.has_permissions(manage_channels=True)
+async def unhide(ctx, channel: discord.TextChannel = None):
+    channel = channel or ctx.channel
+    overwrite = channel.overwrites_for(ctx.guild.default_role)
+    overwrite.read_messages = True
+    await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
+    await ctx.send(':busts_in_silhouette: | channel has been unHide {}'.format(channel.mention))   

@@ -1,0 +1,23 @@
+###################### Say command ######################
+@client.command(aliases=['say'])
+@commands.has_permissions(embed_links=True)
+async def embed(ctx, *, arg):
+    say_embed = discord.Embed(description=arg)
+    say_embed.set_author(name=client.user.name, icon_url=client.user.avatar_url)
+    say_embed.set_footer(text=f'By: {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+    say_embed.set_thumbnail(url=ctx.guild.icon_url)
+    await ctx.channel.purge(limit=1)
+    await ctx.send(embed=say_embed)
+@commands.has_permissions(embed_links=True)
+@embed.error
+async def embed_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(description=f"""
+**Command: embed**  
+say embed.
+**Usage:**
+{client.command_prefix}embed (your message)
+**Examples:**
+{client.command_prefix}embed hi, I'am {ctx.author.display_name} !.
+    """)
+        await ctx.send(embed=embed)
