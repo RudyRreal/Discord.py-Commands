@@ -1,0 +1,15 @@
+################ Bot info command ################
+@client.command(aliases=['bot', 'بوت','البوت'])
+async def botinfo(ctx):
+    embed = discord.Embed(title='**bot info**'
+    ,timestamp=ctx.message.created_at)
+    embed.add_field(name='📋 | Bot Name', value=client.user.name)
+    embed.add_field(name='🏵️ | Bot Tag', value='#' + client.user.discriminator)
+    embed.add_field(name="👏 | Created At", value=client.user.created_at.strftime("%m/%d/%Y, %H:%M:%S %p"))
+    embed.add_field(name="⭐ | Server", value=f'{len(client.guilds)}')
+    embed.add_field(name="💬 | Channels", value=sum(1 for g in client.guilds for _ in g.channels))
+    embed.add_field(name="🏓 | Bot Ping", value=f"{client.ws.latency * 1000:.0f} ms")
+    embed.add_field(name="🔗 | Invite Bot", value=f"[Click Here](هنا حط رابط بوتك)")
+    embed.add_field(name="🔗 | Made By", value=f"Rudy R#2352")
+    embed.set_footer(text='Requested By {}'.format(ctx.author.display_name), icon_url=ctx.author.avatar_url)
+    await ctx.send(embed=embed)

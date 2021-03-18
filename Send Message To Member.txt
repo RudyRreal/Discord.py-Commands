@@ -1,0 +1,12 @@
+##################### Send  command #####################
+@client.command()
+async def member(ctx, member: discord.Member = None, *, reso):
+    embed = discord.Embed(title='send message in {} guild'.format(ctx.guild.name), description=reso, color=0xFFE000, timestamp=ctx.message.created_at)
+    embed.set_footer(text=ctx.guild.name, icon_url=ctx.guild.icon_url)
+    await member.send(embed=embed)
+    await ctx.send("✅ The message has been sent to the member")
+@member.error
+async def member_error(ctx, error):
+    print(error)
+    if isinstance(error, commands.errors.MemberNotFound):
+        await ctx.send('🙄 I could not find this member')

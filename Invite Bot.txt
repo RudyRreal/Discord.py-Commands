@@ -1,0 +1,9 @@
+################# Invite command ################# 
+@client.command()
+async def invite(ctx):
+    embed = discord.Embed()
+    embed.set_thumbnail(url=client.user.avatar_url)
+    embed.add_field(name='رابط الدعوة', value=f'[اضغط هنا](رابط دعوة البوت)')
+    embed.add_field(name='رابط الدعم', value=f'[اضغط هنا](https://paypal.me/RudyMohamadBali)')
+
+    await ctx.send(embed=embed)
